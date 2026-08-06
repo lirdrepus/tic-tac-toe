@@ -2,29 +2,29 @@ using System.Runtime.CompilerServices;
 
 namespace tic_tac_toe;
 
-public static class GlobalVariables
+public class GlobalVariables
 {
     public static int[] KeyPress = [1, 2, 9];
 
-    public static int n;
+    protected static int n;
 
-    public static int[,] BoardLocations;
+    protected static int[,] BoardLocations;
 
-    public static int NumbersInPlayer1;
+    private static int NumbersInPlayer1;
 
-    public static int NumbersInPlayer2;
+    private static int NumbersInPlayer2;
 
-    public static int WinNumber;
+    protected static int WinNumber;
     
-    public static int[] RowPlayer = new int [2];
+    protected static int[] RowPlayer = new int [2];
     
-    public static int[] ColPlayer = new int [2];
+    protected static int[] ColPlayer = new int [2];
     
     public static int[][] OddEvenInNSquare = new int[2][];
     
-    public static int CurrentPlayer = 0;
+    protected static int CurrentPlayer = 0;
     
-    public static string CurrentNum = "odd";
+    protected static string CurrentNum = "odd";
 
 
     public static void Initialize(int nFromProgram)
@@ -53,23 +53,4 @@ public static class GlobalVariables
             OddEvenInNSquare[1][i] = i * 2 + 2;
         }
     }
-    
-    //public static int[,] BoardLocations =  new int[n, n];
-    
-    
-    //public static int NumbersInPlayer1 = n * n / 2 + n % 2;
-    
-    
-    //public static int NumbersInPlayer2 = n * n - NumbersInPlayer1;
-
-    
-    //public static int WinNumber = n * (n * n + 1) / 2;
-    
-    
-    
-    //OddEvenInNSquare[0]= new int[numbersInPlayer1];
-    //oddEvenInNSquare[1]= new int[numbersInPlayer2];
-//int[][] evenInNSquare = new int[3][numbersInPlayer2];
-//int[] alreadyInput = new int[n * n];
-    
 }

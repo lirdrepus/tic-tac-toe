@@ -12,21 +12,4 @@ public class Player
     {
         NumbersInPlayer = number;
     }
-
-/*    public void PlayerName(string name)
-    {
-        Name = name;
-    }
-
-    public void NumInPlayer(int number)
-    {
-        NumbersInPlayer = number;
-    }
-    
-    public void WithNumbers(int containNumbers)
-    {
-        ContainNumbers = containNumbers;
-    }
-    
-*/    
 }

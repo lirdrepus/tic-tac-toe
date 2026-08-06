@@ -29,27 +29,3 @@ public class InputInt
     }
 
 }
-
-/*
-//varify whether the input is integer or not
-   static int InputInt(string inputString)
-   {
-       Console.WriteLine(inputString);
-       int inputInt = 0;
-       while (inputInt == 0)
-       {
-           try
-           {
-               inputInt = Convert.ToInt16(Console.ReadLine());
-           }
-           catch (System.FormatException)
-           {
-               inputInt = 0;
-               Console.WriteLine("Please enter an integer:");
-           }
-       }
-   
-       return inputInt;
-   }
-   
-   */

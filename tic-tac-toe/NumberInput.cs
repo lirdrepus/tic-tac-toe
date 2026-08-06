@@ -24,14 +24,3 @@ public class NumberInput
         return inputInt;
     }
 }
-
-/*//varify whether the input is in the array or not
-   static int NumInt (string inputString, int[] integers)
-   {
-       int inputInt = InputInt(inputString);
-       while (!integers.Contains(inputInt))
-       {
-           inputInt = InputInt(inputString);
-       }
-       return inputInt;
-   }*/

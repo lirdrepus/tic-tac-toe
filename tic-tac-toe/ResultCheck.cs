@@ -1,15 +1,15 @@
 namespace tic_tac_toe;
 
-public static class ResultCheck
+public class ResultCheck: GlobalVariables
 {
-    private static int n = GlobalVariables.n;
+    //private static int _n = GlobalVariables.n;
 
-    private static int[,] boardLocations = GlobalVariables.BoardLocations;
+    //private static int[,] _boardLocations = GlobalVariables.BoardLocations;
 
-    private static int winNumber = GlobalVariables.WinNumber;
+    //private static int _winNumber = GlobalVariables.WinNumber;
 
     
-    public static void AmountCheck(string player) //, ref int human1Total, ref int human2Total)
+    public void AmountCheck(string player) //, ref int human1Total, ref int human2Total)
     {
 
         int[] horizontalAmount = new int[n];
@@ -20,8 +20,8 @@ public static class ResultCheck
         {
             for (int j = 0; j < n; j++)
             {
-                horizontalAmount[i] += boardLocations[i, j];
-                verticalAmount[j] += boardLocations[j, i];
+                horizontalAmount[i] += BoardLocations[i, j];
+                verticalAmount[j] += BoardLocations[j, i];
             }
         }
 
@@ -30,17 +30,17 @@ public static class ResultCheck
 
         for (int i = 0; i < n; i++)
         {
-            mainDiagonal += boardLocations[i, i];
-            antiDiagonal += boardLocations[i, n - 1 - i];
+            mainDiagonal += BoardLocations[i, i];
+            antiDiagonal += BoardLocations[i, n - 1 - i];
         }
 
-        if (horizontalAmount.Contains(winNumber) || verticalAmount.Contains(winNumber) || mainDiagonal == winNumber ||
-            antiDiagonal == winNumber)
+        if (horizontalAmount.Contains(WinNumber) || verticalAmount.Contains(WinNumber) || mainDiagonal == WinNumber ||
+            antiDiagonal == WinNumber)
         {
             Console.WriteLine($"Winer is {player}!");
             Environment.Exit(0);
         }
-        else if (!boardLocations.Cast<int>().Contains(0))
+        else if (!BoardLocations.Cast<int>().Contains(0))
         {
             Console.WriteLine("Draw Game!");
             Environment.Exit(0);

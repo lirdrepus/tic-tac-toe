@@ -20,15 +20,3 @@ public class PlayerInputInt
         return inputInt;
     }
 }
-
-/*/Human input
-   static int PlayerInpInt (string inputString, int n)
-   {
-       int inputInt = InputInt(inputString);
-       while (0 >= inputInt || inputInt > n)
-       {
-           inputInt = InputInt(inputString);
-       }
-       return inputInt;
-   }
-   */
