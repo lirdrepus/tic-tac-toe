@@ -25,6 +25,7 @@ public class VsComputer: Game
     
     
     Random _rnd = new Random();
+    PrintBoard printBoard = new PrintBoard();
     
     //Human Input
     public void HumanVsComputer()
@@ -42,7 +43,8 @@ public class VsComputer: Game
 
             BoardCheck();
             ComInput();
-
+            
+            printBoard.PntCurrentBoard();
 
 
             if (CurrentPlayer == 1)
@@ -109,12 +111,16 @@ public class VsComputer: Game
             {
                 int indexHori = Array.IndexOf(horizontalList, 0);
                 Console.WriteLine($"Computer placed {lastHoriEven} at row {i + 1} column {indexHori + 1}, Summary of row {i + 1} is {WinNumber}, Computer Wins!");
+                BoardLocations[i, indexHori] = lastHoriEven;
+                printBoard.PntCurrentBoard();
                 Environment.Exit(0);
             }
             else if (verticalList.Count(x => x == 0) == 1 && OddEvenInNSquare[1].Contains(lastVerdiEven))
             {
                 int indexVerdi = Array.IndexOf(verticalList, 0);
                 Console.WriteLine($"Computer placed {lastVerdiEven} at row {indexVerdi + 1} column {i + 1}, Summary of column {i + 1} is {WinNumber}, Computer Wins!");
+                BoardLocations[indexVerdi, i] = lastVerdiEven;
+                printBoard.PntCurrentBoard();
                 Environment.Exit(0);
             }
         }
@@ -131,16 +137,20 @@ public class VsComputer: Game
         int lastMainDiaEven = WinNumber - mainDiagonal.Sum();
         int lastAntiDiaEven = WinNumber - antiDiagonal.Sum();
         
-        if (mainDiagonal.Count(x => x == 0) == 1 && OddEvenInNSquare[0].Contains(lastMainDiaEven))
+        if (mainDiagonal.Count(x => x == 0) == 1 && OddEvenInNSquare[1].Contains(lastMainDiaEven))
         {
             int indexMainDia = Array.IndexOf(mainDiagonal, 0);
             Console.WriteLine($"Computer placed {lastMainDiaEven} at row {indexMainDia + 1} column {indexMainDia + 1}, Summary of Main Diagonal is {WinNumber}, Computer Wins!");
+            BoardLocations[indexMainDia, indexMainDia] = lastMainDiaEven;
+            printBoard.PntCurrentBoard();
             Environment.Exit(0);
         }
         else if (antiDiagonal.Count(x => x == 0) == 1 && OddEvenInNSquare[1].Contains(lastAntiDiaEven))
         {
             int indexAntiDiaEven = Array.IndexOf(antiDiagonal, 0);
             Console.WriteLine($"Computer placed {lastAntiDiaEven} at row {indexAntiDiaEven} column {n - indexAntiDiaEven}, Summary of Anti Diagonal is {WinNumber}, Computer Wins!");
+            BoardLocations[indexAntiDiaEven - 1, n - indexAntiDiaEven - 1] = lastAntiDiaEven;
+            printBoard.PntCurrentBoard();
             Environment.Exit(0);
         }
         

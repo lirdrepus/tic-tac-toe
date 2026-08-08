@@ -1,5 +1,3 @@
-using System.Net.NetworkInformation;
-
 namespace tic_tac_toe;
 
 public class Game: GlobalVariables
@@ -129,6 +127,9 @@ public class Game: GlobalVariables
                 Console.WriteLine("This number is already in the board, please try again");
             }
 
+            PrintBoard printBoard = new PrintBoard();
+            printBoard.PntCurrentBoard();
+            
             ResultCheck resultCheck = new ResultCheck();
             resultCheck.AmountCheck($"Player {CurrentPlayer + 1}");
 

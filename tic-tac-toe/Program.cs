@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-using tic_tac_toe;
+﻿using tic_tac_toe;
 
 public static class Program
 {

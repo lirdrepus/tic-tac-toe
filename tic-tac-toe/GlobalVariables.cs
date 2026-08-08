@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace tic_tac_toe;
 
 public class GlobalVariables
