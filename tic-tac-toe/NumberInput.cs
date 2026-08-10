@@ -1,24 +1,25 @@
-using System.Globalization;
-
 namespace tic_tac_toe;
+
+//NumberInput class checks user input matches one of the integers in the array.
+//It ensures players only choose numbers from odd and even pools.
 
 public class NumberInput
 {
-    public int[] Integers { get; set; }
-    public string InputString { get; set; }
-    //public int PlayerChoice { get; set; }
+    public int[]? Integers { get; set; }
+    public string? InputString { get; set; }
+    
 
     public int NumInt(string inputString, int[] integers)
     {
         this.InputString = inputString;
         this.Integers = integers;
 
-        var InputInt = new InputInt();
-        int inputInt = InputInt.InputInteger(inputString);
-        //int inputInt = InputInt(inputString);
+        var inpInt = new InputInt();
+        int inputInt = inpInt.InputInteger(inputString);
+        
         while (!integers.Contains(inputInt))
         {
-            inputInt = InputInt.InputInteger(inputString);
+            inputInt = inpInt.InputInteger(inputString);
         }
 
         return inputInt;

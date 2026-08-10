@@ -1,44 +1,33 @@
 namespace tic_tac_toe;
 
-public class VsComputer: Game
+//Controls Human vs Computer gameplay.
+//Includes human moves, computer move and win detection logic
+public class VsComputer
 {
-    //private static int n = GlobalVariables.n;
-    
-    //private static int[] rowPlayer = GlobalVariables.RowPlayer;
-    
-    //private static int[] colPlayer = GlobalVariables.ColPlayer;
-    
-    //private static int CurrentPlayer = GlobalVariables.CurrentPlayer;
+    private readonly GlobalVariables gv;
+    private PrintBoard printBoard;
+    private Random _rnd;
 
-    //private static int[,] BoardLocations = GlobalVariables.BoardLocations;
+    public VsComputer(GlobalVariables globalVariables)
+    {
+        gv = globalVariables;
+        printBoard = new PrintBoard(gv);
+        _rnd = new Random();
+    }
+    
 
-    //private NumberInput numInput = new NumberInput();
-
-    //private static string currentNum = GlobalVariables.CurrentNum;
-    
-    //int[][] OddEvenInNSquare = GlobalVariables.OddEvenInNSquare; //new int[2][];
-
-    //OddEvenInNSquare[0] = GlobalVariables.OddEvenInNSquare[0]; //new int[numbersInPlayer1];
-
-    //OddEvenInNSquare[1] = GlobalVariables.OddEvenInNSquare[1]; //new int[numbersInPlayer2];
-    
-    
-    
-    Random _rnd = new Random();
-    PrintBoard printBoard = new PrintBoard();
-    
-    //Human Input
     public void HumanVsComputer()
     {
         while (true)
         {
-            HumanInput();
-            ProcessInBoard();
+            var game = new Game(gv);
+            game.HumanInput();
+            game.ProcessInBoard();
             
-            if (CurrentPlayer == 0)
+            if (gv.CurrentPlayer == 0)
             {
-                CurrentPlayer = 1;
-                CurrentNum = "even";
+                gv.CurrentPlayer = 1;
+                gv.CurrentNum = "even";
             }
 
             BoardCheck();
@@ -47,10 +36,10 @@ public class VsComputer: Game
             printBoard.PntCurrentBoard();
 
 
-            if (CurrentPlayer == 1)
+            if (gv.CurrentPlayer == 1)
             {
-                CurrentPlayer = 0;
-                CurrentNum = "odd";
+                gv.CurrentPlayer = 0;
+                gv.CurrentNum = "odd";
             }
         }
 
@@ -62,30 +51,30 @@ public class VsComputer: Game
         do
         {
 
-            RowPlayer[CurrentPlayer] = _rnd.Next(0, n);
+            gv.RowPlayer[gv.CurrentPlayer] = _rnd.Next(0, gv.n);
 
-            ColPlayer[CurrentPlayer] = _rnd.Next(0, n);
+            gv.ColPlayer[gv.CurrentPlayer] = _rnd.Next(0, gv.n);
             
-        } while (BoardLocations[RowPlayer[CurrentPlayer], ColPlayer[CurrentPlayer]] != 0);
+        } while (gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]] != 0);
 
         do
         {
-            int randomIndex = _rnd.Next(0, OddEvenInNSquare[CurrentPlayer].Length);
+            int randomIndex = _rnd.Next(0, gv.OddEvenInNSquare[gv.CurrentPlayer].Length);
 
-            BoardLocations[RowPlayer[CurrentPlayer], ColPlayer[CurrentPlayer]] =
-                OddEvenInNSquare[CurrentPlayer][randomIndex];
-                //numInput.NumInt($"Please enter an {CurrentNum} number:", OddEvenInNSquare[CurrentPlayer]);
-            if (OddEvenInNSquare[CurrentPlayer]
-                .Contains(BoardLocations[RowPlayer[CurrentPlayer], ColPlayer[CurrentPlayer]]))
+            gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]] =
+                gv.OddEvenInNSquare[gv.CurrentPlayer][randomIndex];
+            
+            if (gv.OddEvenInNSquare[gv.CurrentPlayer]
+                .Contains(gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]]))
             {
-                int index = Array.IndexOf(OddEvenInNSquare[CurrentPlayer],
-                    BoardLocations[RowPlayer[CurrentPlayer], ColPlayer[CurrentPlayer]]);
-                OddEvenInNSquare[CurrentPlayer][index] = 0;
+                int index = Array.IndexOf(gv.OddEvenInNSquare[gv.CurrentPlayer],
+                    gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]]);
+                gv.OddEvenInNSquare[gv.CurrentPlayer][index] = 0;
             }
-        } while (BoardLocations[RowPlayer[CurrentPlayer], ColPlayer[CurrentPlayer]] == 0);
+        } while (gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]] == 0);
 
         Console.WriteLine(
-            $"Computer placed {BoardLocations[RowPlayer[CurrentPlayer], ColPlayer[CurrentPlayer]]} at row {RowPlayer[CurrentPlayer] + 1} column {ColPlayer[CurrentPlayer] + 1}");
+            $"Computer placed {gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]]} at row {gv.RowPlayer[gv.CurrentPlayer] + 1} column {gv.ColPlayer[gv.CurrentPlayer] + 1}");
 
     }
 
@@ -93,63 +82,62 @@ public class VsComputer: Game
 
     void BoardCheck()
     {
-        //把横竖数分别放进数组, 检查到有切只有一个0, 要是电脑有相应的偶数能填入, 记录位置, 输出电脑用该偶数填入该位置, 电脑赢
-        int[] horizontalList = new int[n];
-        int[] verticalList = new int[n];
+        int[] horizontalList = new int[gv.n];
+        int[] verticalList = new int[gv.n];
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < gv.n; i++)
         {
-            for (int j = 0; j < n; j++)
+            for (int j = 0; j < gv.n; j++)
             {
-                horizontalList[j] = BoardLocations[i, j];
-                verticalList[j] = BoardLocations[j, i];
+                horizontalList[j] = gv.BoardLocations[i, j];
+                verticalList[j] = gv.BoardLocations[j, i];
             }
-            int lastHoriEven = WinNumber - horizontalList.Sum();
-            int lastVerdiEven = WinNumber - verticalList.Sum();
+            int lastHoriEven = gv.WinNumber - horizontalList.Sum();
+            int lastVerdiEven = gv.WinNumber - verticalList.Sum();
             
-            if (horizontalList.Count(x => x == 0) == 1 && OddEvenInNSquare[1].Contains(lastHoriEven))
+            if (horizontalList.Count(x => x == 0) == 1 && gv.OddEvenInNSquare[1].Contains(lastHoriEven))
             {
                 int indexHori = Array.IndexOf(horizontalList, 0);
-                Console.WriteLine($"Computer placed {lastHoriEven} at row {i + 1} column {indexHori + 1}, Summary of row {i + 1} is {WinNumber}, Computer Wins!");
-                BoardLocations[i, indexHori] = lastHoriEven;
+                Console.WriteLine($"Computer placed {lastHoriEven} at row {i + 1} column {indexHori + 1}, Summary of Row {i + 1} is {gv.WinNumber}, Computer Wins!");
+                gv.BoardLocations[i, indexHori] = lastHoriEven;
                 printBoard.PntCurrentBoard();
                 Environment.Exit(0);
             }
-            else if (verticalList.Count(x => x == 0) == 1 && OddEvenInNSquare[1].Contains(lastVerdiEven))
+            else if (verticalList.Count(x => x == 0) == 1 && gv.OddEvenInNSquare[1].Contains(lastVerdiEven))
             {
                 int indexVerdi = Array.IndexOf(verticalList, 0);
-                Console.WriteLine($"Computer placed {lastVerdiEven} at row {indexVerdi + 1} column {i + 1}, Summary of column {i + 1} is {WinNumber}, Computer Wins!");
-                BoardLocations[indexVerdi, i] = lastVerdiEven;
+                Console.WriteLine($"Computer placed {lastVerdiEven} at row {indexVerdi + 1} column {i + 1}, Summary of Column {i + 1} is {gv.WinNumber}, Computer Wins!");
+                gv.BoardLocations[indexVerdi, i] = lastVerdiEven;
                 printBoard.PntCurrentBoard();
                 Environment.Exit(0);
             }
         }
         
-        int[] mainDiagonal = new int[n];
-        int[] antiDiagonal = new int[n];
+        int[] mainDiagonal = new int[gv.n];
+        int[] antiDiagonal = new int[gv.n];
         
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < gv.n; i++)
         {
-            mainDiagonal[i] = BoardLocations[i, i];
-            antiDiagonal[i] = BoardLocations[i, n - 1 - i];
+            mainDiagonal[i] = gv.BoardLocations[i, i];
+            antiDiagonal[i] = gv.BoardLocations[i, gv.n - 1 - i];
         }
         
-        int lastMainDiaEven = WinNumber - mainDiagonal.Sum();
-        int lastAntiDiaEven = WinNumber - antiDiagonal.Sum();
+        int lastMainDiaEven = gv.WinNumber - mainDiagonal.Sum();
+        int lastAntiDiaEven = gv.WinNumber - antiDiagonal.Sum();
         
-        if (mainDiagonal.Count(x => x == 0) == 1 && OddEvenInNSquare[1].Contains(lastMainDiaEven))
+        if (mainDiagonal.Count(x => x == 0) == 1 && gv.OddEvenInNSquare[1].Contains(lastMainDiaEven))
         {
             int indexMainDia = Array.IndexOf(mainDiagonal, 0);
-            Console.WriteLine($"Computer placed {lastMainDiaEven} at row {indexMainDia + 1} column {indexMainDia + 1}, Summary of Main Diagonal is {WinNumber}, Computer Wins!");
-            BoardLocations[indexMainDia, indexMainDia] = lastMainDiaEven;
+            Console.WriteLine($"Computer placed {lastMainDiaEven} at row {indexMainDia + 1} column {indexMainDia + 1}, Summary of Main Diagonal is {gv.WinNumber}, Computer Wins!");
+            gv.BoardLocations[indexMainDia, indexMainDia] = lastMainDiaEven;
             printBoard.PntCurrentBoard();
             Environment.Exit(0);
         }
-        else if (antiDiagonal.Count(x => x == 0) == 1 && OddEvenInNSquare[1].Contains(lastAntiDiaEven))
+        else if (antiDiagonal.Count(x => x == 0) == 1 && gv.OddEvenInNSquare[1].Contains(lastAntiDiaEven))
         {
             int indexAntiDiaEven = Array.IndexOf(antiDiagonal, 0);
-            Console.WriteLine($"Computer placed {lastAntiDiaEven} at row {indexAntiDiaEven} column {n - indexAntiDiaEven}, Summary of Anti Diagonal is {WinNumber}, Computer Wins!");
-            BoardLocations[indexAntiDiaEven - 1, n - indexAntiDiaEven - 1] = lastAntiDiaEven;
+            Console.WriteLine($"Computer placed {lastAntiDiaEven} at row {indexAntiDiaEven} column {gv.n - indexAntiDiaEven}, Summary of Anti Diagonal is {gv.WinNumber}, Computer Wins!");
+            gv.BoardLocations[indexAntiDiaEven - 1, gv.n - indexAntiDiaEven - 1] = lastAntiDiaEven;
             printBoard.PntCurrentBoard();
             Environment.Exit(0);
         }
