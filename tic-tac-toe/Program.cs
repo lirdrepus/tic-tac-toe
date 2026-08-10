@@ -1,69 +1,66 @@
-﻿using tic_tac_toe;
+﻿namespace tic_tac_toe;
+
+//Entry point of the Numerical Tic-Tac-Toe game.
+//It has Menu display, user input, and game mode selection.
 
 public static class Program
 {
     public static void Main(string[] args)
     {
+        //Display readme
+        /*var displayReadme = new DisplayReadme();
+        string baseDir = AppContext.BaseDirectory;
+        string readmePath = Path.Combine(baseDir, "Readme.txt");
+        displayReadme.PrintReadme(readmePath);*/
+        //displayReadme.PrintReadme("../../../Readme.txt");
+        
+        //Show welcome message and available game modes
         Console.WriteLine("Welcome to Numerical Tic Tac Toe!");
         Console.WriteLine("Press 1: Human vs Human");
         Console.WriteLine("Press 2: Human vs Computer");
         Console.WriteLine("Press 9: Quit");
 
-        int[] keyPress = GlobalVariables.KeyPress; //[1, 2, 9]; //Created in GV
-
-
-//调用类NumberInput, 获取所选模式
-
+        //key presses defined [1, 2, 9]
+        var gv = new GlobalVariables();
+        int[] keyPress = gv.KeyPress;
         var numInput = new NumberInput();
         int modeChoice = numInput.NumInt("Please enter a number 1, 2, or 9", keyPress);
         if (modeChoice == 9) Environment.Exit(0);
-
-
-
+        
+        //Ask user to input n for board size
         var inpInt = new InputInt();
         int n = inpInt.InputInteger("Please enter a value of n:");
         
-
-        //transfer n to GV
-        GlobalVariables.Initialize(n);
-
-        //int[,] boardLocations = GlobalVariables.BoardLocations; //new int[n, n];
-
-        //int numbersInPlayer1 = GlobalVariables.NumbersInPlayer1; //n * n / 2 + n % 2;
-
-        //int numbersInPlayer2 = GlobalVariables.NumbersInPlayer2; //n * n - numbersInPlayer1;
-
-        //int winNumber = GlobalVariables.WinNumber; //n * (n * n + 1) / 2;
-
-        //int[] rowPlayer = GlobalVariables.RowPlayer; //new int [2];
-
-        //int[] colPlayer = GlobalVariables.ColPlayer; //new int [2];
-
-        int[][] oddEvenInNSquare = GlobalVariables.OddEvenInNSquare; //new int[2][];
-
-        oddEvenInNSquare[0] = GlobalVariables.OddEvenInNSquare[0]; //new int[numbersInPlayer1];
-
-        oddEvenInNSquare[1] = GlobalVariables.OddEvenInNSquare[1]; //new int[numbersInPlayer2];
+        //Initialize global variables
+        gv.Initialize(n);
         
-        //int currentPlayer = GlobalVariables.CurrentPlayer; //0;
+        Console.WriteLine($"Then the winning number is {gv.WinNumber}");
+        
+        //Print the empty board
+        PrintBoard printBoard = new PrintBoard(gv);
+        printBoard.PntCurrentBoard();
 
-        //string currentNum = GlobalVariables.CurrentNum; //"odd";
+        //Initialize oddEvenInNSquare array for the odd and even number pools
+        int[][] oddEvenInNSquare = gv.OddEvenInNSquare; 
+        oddEvenInNSquare[0] = gv.OddEvenInNSquare[0]; 
+        oddEvenInNSquare[1] = gv.OddEvenInNSquare[1]; 
 
+        //Select game mode based on user choice
         switch (modeChoice)
         {
+            //Human vs Human mode
             case 1:
-                //Human vs Human
-                //n^2的单数放进oddInN, 双数放进evenInN
-                //HumanVsHuman();
-                var game = new Game();
+                var game = new Game(gv);
                 game.HumanVsHuman();
-                //human2同样
-                
                 break;
+            
+            //Human vs Computer mode
             case 2:
-                var vsCom = new VsComputer();
+                var vsCom = new VsComputer(gv);
                 vsCom.HumanVsComputer();
                 break;
+            
+            //Quit Game
             case 9:
                 Environment.Exit(0);
                 break;

@@ -1,18 +1,23 @@
 namespace tic_tac_toe;
-public class PrintBoard: Game
+
+//Displays the game board of current move
+//Builds the format of the board
+public class PrintBoard
 {
-    private static int nSquareLength = (n * n).ToString().Length;
-    /*private static string unitText = " "
-                      + string.Concat(Enumerable.Repeat(" ",
-                          (nSquareLength - BoardLocations[RowPlayer[CurrentPlayer], ColPlayer[CurrentPlayer]]
-                              .ToString().Length)))
-                      + BoardLocations[RowPlayer[CurrentPlayer], ColPlayer[CurrentPlayer]]
-                      + " " + "|";
-    private static int unitlength = unitText.Length;*/
-    //可以把原二位數組變成列表加座標
-    //private static int[,] newBoard = new int[n + 1, n + 1];
-    private static string[,] newStringBoard = new string[n + 1, n + 1];
-    //private string[] boardLine = new string[n + 1];
+    private GlobalVariables gv;
+    private int nSquareLength;
+    private string[,] newStringBoard;
+    public PrintBoard(GlobalVariables globalVariables)
+    {
+        gv = globalVariables;
+        nSquareLength = (gv.n * gv.n).ToString().Length;
+        newStringBoard = new string[gv.n + 1, gv.n + 1];
+    }
+    
+    
+    //private int nSquareLength = (gv.n * gv.n).ToString().Length;
+    
+    //private string[,] newStringBoard = new string[gv.n + 1, gv.n + 1];
 
     public void PntCurrentBoard()
     {
@@ -20,22 +25,12 @@ public class PrintBoard: Game
         PntBoard();
     }
 
-    public void CreatNewBoard()
+    private void CreatNewBoard()
     {
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < gv.n; i++)
         {
-            //newBoard[i + 1, 0] = i + 1;
-            //newBoard[0, i + 1] = i + 1;
-            newStringBoard[i + 1, 0] = " "
-                                       + string.Concat(Enumerable.Repeat(" ",
-                                           (nSquareLength - (i + 1).ToString().Length)))
-                                       + $"\e[31m{(i + 1).ToString()}\e[00m"
-                                       + " " + "|";
-            newStringBoard[0, i + 1] = " "
-                                       + string.Concat(Enumerable.Repeat(" ",
-                                           (nSquareLength - (i + 1).ToString().Length)))
-                                       + $"\e[31m{(i + 1).ToString()}\e[00m"
-                                       + " " + "|";
+            newStringBoard[i + 1, 0] = HeaderString(i);
+            newStringBoard[0, i + 1] = HeaderString(i);
 
         }
 
@@ -44,41 +39,52 @@ public class PrintBoard: Game
                                    nSquareLength))
                                + " " + "|";
         
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < gv.n; i++)
         {
-            for (int j = 0; j < n; j++)
+            for (int j = 0; j < gv.n; j++)
             {
-                newStringBoard[i + 1, j + 1] = " "
-                                               + string.Concat(Enumerable.Repeat(" ",
-                                                   (nSquareLength - BoardLocations[i, j].ToString().Length)))
-                                               + BoardLocations[i, j].ToString()
-                                               + " " + "|";
-                newStringBoard[j + 1, i + 1] = " "
-                                               + string.Concat(Enumerable.Repeat(" ",
-                                                   (nSquareLength - BoardLocations[j, i].ToString().Length)))
-                                               + BoardLocations[j, i].ToString()
-                                               + " " + "|";
+                newStringBoard[i + 1, j + 1] = CellString(i, j);
+                newStringBoard[j + 1, i + 1] = CellString(j, i);
             }
         }
     }
 
-    
-    
-    public void PntBoard()
+    private string HeaderString(int header)
     {
-        string[] boardLine = new string[n + 1];
+        string headerString = " "
+                              + string.Concat(Enumerable.Repeat(" ",
+                                  (nSquareLength - (header + 1).ToString().Length)))
+                              + $"\e[31m{(header + 1).ToString()}\e[00m"
+                              + " " + "|";
+        return headerString;
+    }
+
+    private string CellString(int row, int col)
+    {
+        string cellString = " "
+                         + string.Concat(Enumerable.Repeat(" ",
+                             (nSquareLength - gv.BoardLocations[row, col].ToString().Length)))
+                         + gv.BoardLocations[row, col].ToString()
+                         + " " + "|";
+        return cellString;
+    }
+    
+    private void PntBoard()
+    {
+        string[] boardLine = new string[gv.n + 1];
         
-        for (int i = 0; i < n + 1; i++)
+        for (int i = 0; i < gv.n + 1; i++)
         {
-            for (int j = 0; j < n + 1; j++)
+            for (int j = 0; j < gv.n + 1; j++)
             {
                 boardLine[i] += newStringBoard[i, j];
             }
         }
 
+        Console.WriteLine(string.Concat(Enumerable.Repeat("-", boardLine[1].Length - 10)));
         Console.WriteLine(boardLine[0]);
         Console.WriteLine(string.Concat(Enumerable.Repeat("-", boardLine[1].Length - 10)));
-        for (int i = 1; i < n + 1; i++)
+        for (int i = 1; i < gv.n + 1; i++)
         {
             string rplZero = boardLine[i].Replace(" 0 ", "   ");
             
@@ -86,8 +92,6 @@ public class PrintBoard: Game
             
             Console.WriteLine(string.Concat(Enumerable.Repeat("-", boardLine[i].Length - 10)));
         }
-        
-        
         
     }
 }
