@@ -13,13 +13,35 @@ public class InputInt
         
         Console.WriteLine(inputString);
         int inputInt = 0;
+        string tempString;
         while (inputInt == 0)
         {
             try
             {
-                inputInt = Convert.ToInt16(Console.ReadLine());
+                while (true)
+                {
+                    tempString = Console.ReadLine().ToUpper();
+                    if (tempString == "H")
+                    {
+                        Console.WriteLine("In the Game, you need to enter integers between 1 and the n you input for row and columns," +
+                                          "\nthen Player 1 inputs odd number while Player 2 input even number." +
+                                          "\nIf the input number is invalid, it needs to be input again." +
+                                          "\nThe first player to complete one of those lines adding up to score point is the winner." +
+                                          "\n" +
+                                          "\nInput a valid number:");
+                    }
+                    else if (Convert.ToInt16(tempString) <= 0)
+                    {
+                        Console.WriteLine("Your input is incorrect, please enter an valid integer:");
+                    }
+                    else if(tempString != "H")
+                    {
+                        inputInt = Convert.ToInt16(tempString);
+                        break;
+                    }
+                }
             }
-            catch (System.FormatException)
+            catch (System.Exception)
             {
                 Console.WriteLine("Your input is incorrect, please enter an integer:");
                 inputInt = 0;

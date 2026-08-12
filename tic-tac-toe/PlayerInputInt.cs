@@ -17,6 +17,7 @@ public class PlayerInputInt
         
         while (0 >= inputInt || inputInt > n)
         {
+            Console.WriteLine("Please enter a valid integer");
             inputInt = inpInt.InputInteger(inputString);
         }
         return inputInt;

@@ -7,26 +7,40 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        //Display readme
-        /*var displayReadme = new DisplayReadme();
-        string baseDir = AppContext.BaseDirectory;
-        string readmePath = Path.Combine(baseDir, "Readme.txt");
-        displayReadme.PrintReadme(readmePath);*/
-        //displayReadme.PrintReadme("../../../Readme.txt");
-        
         //Show welcome message and available game modes
         Console.WriteLine("Welcome to Numerical Tic Tac Toe!");
         Console.WriteLine("Press 1: Human vs Human");
         Console.WriteLine("Press 2: Human vs Computer");
+        Console.WriteLine("Press 5: Help");
+        Console.WriteLine("Press h: In-game Help");
         Console.WriteLine("Press 9: Quit");
 
-        //key presses defined [1, 2, 9]
+        //key presses defined [1, 2, 5, 9]
         var gv = new GlobalVariables();
         int[] keyPress = gv.KeyPress;
         var numInput = new NumberInput();
-        int modeChoice = numInput.NumInt("Please enter a number 1, 2, or 9", keyPress);
-        if (modeChoice == 9) Environment.Exit(0);
-        
+        int modeChoice = 5;
+        while (modeChoice == 5)
+        {
+            modeChoice = numInput.NumInt("Please enter a number 1, 2, 5 or 9", keyPress);
+            if (modeChoice == 9) Environment.Exit(0);
+            else if (modeChoice == 5)
+            {
+                Console.WriteLine("USER GUIDE" +
+                                  "\n" +
+                                  "\nThe program supports two different modes of play, including: " +
+                                  "\nHuman vs Human(Press 1)" +
+                                  "\nHuman vs Computer(Press 2)" +
+                                  "\nAfter choosing mode, input a integer n to decide the score point" +
+                                  "\nin a horizontal, vertical, or diagonal line to win the game." +
+                                  "\nTwo players take turns putting odd numbers (player 1)" +
+                                  "\nand even numbers (player 2 or computer) into the blank squares of a n × n board" +
+                                  "\nwhere two players alternately play by placing one of their numbers on the board of size n." +
+                                  "\nThe first player to complete one of those lines adding up to score point is the winner." +
+                                  "\nPlayer can also press H to get help in-game any time.");
+            }
+        }
+
         //Ask user to input n for board size
         var inpInt = new InputInt();
         int n = inpInt.InputInteger("Please enter a value of n:");
@@ -34,7 +48,7 @@ public static class Program
         //Initialize global variables
         gv.Initialize(n);
         
-        Console.WriteLine($"Then the winning number is {gv.WinNumber}");
+        Console.WriteLine($"Then the winning amount is {gv.WinNumber}");
         
         //Print the empty board
         PrintBoard printBoard = new PrintBoard(gv);
@@ -58,11 +72,6 @@ public static class Program
             case 2:
                 var vsCom = new VsComputer(gv);
                 vsCom.HumanVsComputer();
-                break;
-            
-            //Quit Game
-            case 9:
-                Environment.Exit(0);
                 break;
         }
 

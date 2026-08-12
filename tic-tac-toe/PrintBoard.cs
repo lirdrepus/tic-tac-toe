@@ -13,12 +13,7 @@ public class PrintBoard
         nSquareLength = (gv.n * gv.n).ToString().Length;
         newStringBoard = new string[gv.n + 1, gv.n + 1];
     }
-    
-    
-    //private int nSquareLength = (gv.n * gv.n).ToString().Length;
-    
-    //private string[,] newStringBoard = new string[gv.n + 1, gv.n + 1];
-
+  
     public void PntCurrentBoard()
     {
         CreatNewBoard();

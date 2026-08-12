@@ -6,7 +6,7 @@ namespace tic_tac_toe;
 public class GlobalVariables
 {
     //Set values for menu options
-    public int[] KeyPress { get; set; } = [1, 2, 9];
+    public int[] KeyPress { get; set; } = [1, 2, 5, 9];
     //n for the board input size
     public int n { get; private set; }
     //2D array for storing board positions and placed numbers
