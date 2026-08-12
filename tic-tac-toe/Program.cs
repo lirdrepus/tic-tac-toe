@@ -34,7 +34,7 @@ public static class Program
                                   "\nAfter choosing mode, input a integer n to decide the score point" +
                                   "\nin a horizontal, vertical, or diagonal line to win the game." +
                                   "\nTwo players take turns putting odd numbers (player 1)" +
-                                  "\nand even numbers (player 2 or computer) into the blank squares of a n × n board" +
+                                  "\nand even numbers (player 2 or computer) into the blank squares of a n x n board" +
                                   "\nwhere two players alternately play by placing one of their numbers on the board of size n." +
                                   "\nThe first player to complete one of those lines adding up to score point is the winner." +
                                   "\nPlayer can also press H to get help in-game any time.");
