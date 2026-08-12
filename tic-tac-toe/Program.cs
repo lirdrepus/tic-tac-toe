@@ -7,13 +7,6 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        //Display readme
-        /*var displayReadme = new DisplayReadme();
-        string baseDir = AppContext.BaseDirectory;
-        string readmePath = Path.Combine(baseDir, "Readme.txt");
-        displayReadme.PrintReadme(readmePath);*/
-        //displayReadme.PrintReadme("../../../Readme.txt");
-        
         //Show welcome message and available game modes
         Console.WriteLine("Welcome to Numerical Tic Tac Toe!");
         Console.WriteLine("Press 1: Human vs Human");
@@ -34,7 +27,7 @@ public static class Program
         //Initialize global variables
         gv.Initialize(n);
         
-        Console.WriteLine($"Then the winning number is {gv.WinNumber}");
+        Console.WriteLine($"Then the winning amount is {gv.WinNumber}");
         
         //Print the empty board
         PrintBoard printBoard = new PrintBoard(gv);
