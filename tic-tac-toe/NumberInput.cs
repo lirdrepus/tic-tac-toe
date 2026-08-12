@@ -19,6 +19,7 @@ public class NumberInput
         
         while (!integers.Contains(inputInt))
         {
+            Console.WriteLine("please enter a valid integer");
             inputInt = inpInt.InputInteger(inputString);
         }
 

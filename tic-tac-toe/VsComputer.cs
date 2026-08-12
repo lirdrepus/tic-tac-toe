@@ -18,9 +18,9 @@ public class VsComputer
 
     public void HumanVsComputer()
     {
+        var game = new Game(gv);
         while (true)
         {
-            var game = new Game(gv);
             game.HumanInput();
             game.ProcessInBoard();
             
@@ -73,6 +73,12 @@ public class VsComputer
 
         Console.WriteLine(
             $"Computer placed {gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]]} at row {gv.RowPlayer[gv.CurrentPlayer] + 1} column {gv.ColPlayer[gv.CurrentPlayer] + 1}");
+        
+        if (!gv.BoardLocations.Cast<int>().Contains(0))
+        {
+            Console.WriteLine("Draw Game!");
+            Environment.Exit(0);
+        }
 
     }
 
@@ -146,7 +152,7 @@ public class VsComputer
             int indexAntiDiaEven = Array.IndexOf(antiDiagonal, 0);
             Console.WriteLine(
                 $"Computer placed {lastAntiDiaEven} at row {indexAntiDiaEven} column {gv.n - indexAntiDiaEven}, Summary of Anti Diagonal is {gv.WinNumber}, Computer Wins!");
-            gv.BoardLocations[indexAntiDiaEven - 1, gv.n - indexAntiDiaEven - 1] = lastAntiDiaEven;
+            gv.BoardLocations[indexAntiDiaEven, gv.n - indexAntiDiaEven - 1] = lastAntiDiaEven;
             printBoard.PntCurrentBoard();
             Environment.Exit(0);
         }

@@ -33,7 +33,7 @@ public class ResultCheck
 
         if (!containZero && horiAmount == gv.WinNumber)
         {
-            Console.WriteLine($"Winer is {player}!");
+            Console.WriteLine($"Winner is {player}!");
             Environment.Exit(0);
         }
         
@@ -51,7 +51,7 @@ public class ResultCheck
 
         if (!containZero && vertAmount == gv.WinNumber)
         {
-            Console.WriteLine($"Winer is {player}!");
+            Console.WriteLine($"Winner is {player}!");
             Environment.Exit(0);
         }
 
@@ -71,7 +71,7 @@ public class ResultCheck
 
         if (!containZero && mainDiagonal == gv.WinNumber)
         {
-            Console.WriteLine($"Winer is {player}!");
+            Console.WriteLine($"Winner is {player}!");
             Environment.Exit(0);
         }
         
@@ -89,7 +89,7 @@ public class ResultCheck
 
         if (!containZero && antiDiagonal == gv.WinNumber)
         {
-            Console.WriteLine($"Winer is {player}!");
+            Console.WriteLine($"Winner is {player}!");
             Environment.Exit(0);
         }
         
