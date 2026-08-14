@@ -12,7 +12,7 @@ public static class Program
         Console.WriteLine("Press 1: Human vs Human");
         Console.WriteLine("Press 2: Human vs Computer");
         Console.WriteLine("Press 5: Help");
-        Console.WriteLine("Press h: In-game Help");
+        Console.WriteLine("Press h: Press h to get help in-game any time.");
         Console.WriteLine("Press 9: Quit");
 
         //key presses defined [1, 2, 5, 9]
@@ -47,31 +47,25 @@ public static class Program
         
         //Initialize global variables
         gv.Initialize(n);
+        Game game = new Game(gv);
         
         Console.WriteLine($"Then the winning amount is {gv.WinNumber}");
         
         //Print the empty board
         PrintBoard printBoard = new PrintBoard(gv);
         printBoard.PntCurrentBoard();
-
-        //Initialize oddEvenInNSquare array for the odd and even number pools
-        int[][] oddEvenInNSquare = gv.OddEvenInNSquare; 
-        oddEvenInNSquare[0] = gv.OddEvenInNSquare[0]; 
-        oddEvenInNSquare[1] = gv.OddEvenInNSquare[1]; 
-
+        
         //Select game mode based on user choice
         switch (modeChoice)
         {
             //Human vs Human mode
             case 1:
-                var game = new Game(gv);
                 game.HumanVsHuman();
                 break;
             
             //Human vs Computer mode
             case 2:
-                var vsCom = new VsComputer(gv);
-                vsCom.HumanVsComputer();
+                game.HumanVsComputer();
                 break;
         }
 

@@ -14,6 +14,7 @@ public class PrintBoard
         newStringBoard = new string[gv.n + 1, gv.n + 1];
     }
   
+    //Creates and prints the current board.
     public void PntCurrentBoard()
     {
         CreatNewBoard();
@@ -64,6 +65,7 @@ public class PrintBoard
         return cellString;
     }
     
+    //Prints the formatted board to console.
     private void PntBoard()
     {
         string[] boardLine = new string[gv.n + 1];

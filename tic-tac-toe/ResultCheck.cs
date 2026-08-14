@@ -11,12 +11,9 @@ public class ResultCheck
         gv = globalVariables;
     }
     
-    
+    //Checks whether the current player has won, the game is a draw
     public void AmountCheck(string player) 
     {
-
-        int[] horizontalAmount = new int[gv.n];
-        int[] verticalAmount = new int[gv.n];
         int horiAmount = 0, vertAmount = 0;
         
         bool containZero = false;
@@ -33,7 +30,7 @@ public class ResultCheck
 
         if (!containZero && horiAmount == gv.WinNumber)
         {
-            Console.WriteLine($"Winner is {player}!");
+            Console.WriteLine($"Winner is {player}! Summary of Row {gv.RowPlayer[gv.CurrentPlayer] + 1} is {gv.WinNumber}");
             Environment.Exit(0);
         }
         
@@ -51,7 +48,7 @@ public class ResultCheck
 
         if (!containZero && vertAmount == gv.WinNumber)
         {
-            Console.WriteLine($"Winner is {player}!");
+            Console.WriteLine($"Winner is {player}! Summary of Column {gv.ColPlayer[gv.CurrentPlayer] + 1} is {gv.WinNumber}");
             Environment.Exit(0);
         }
 
@@ -71,7 +68,7 @@ public class ResultCheck
 
         if (!containZero && mainDiagonal == gv.WinNumber)
         {
-            Console.WriteLine($"Winner is {player}!");
+            Console.WriteLine($"Winner is {player}! Summary of Main Diagonal is {gv.WinNumber}");
             Environment.Exit(0);
         }
         
@@ -89,7 +86,7 @@ public class ResultCheck
 
         if (!containZero && antiDiagonal == gv.WinNumber)
         {
-            Console.WriteLine($"Winner is {player}!");
+            Console.WriteLine($"Winner is {player}! Summary of Anti Diagonal is {gv.WinNumber}");
             Environment.Exit(0);
         }
         
