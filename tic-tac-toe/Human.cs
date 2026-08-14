@@ -1,5 +1,6 @@
 namespace tic_tac_toe;
 
+//Human class represents a human player
 public class Human : Player
 {
     public Human(GlobalVariables globalVariables)
@@ -9,10 +10,17 @@ public class Human : Player
         numInput = new NumberInput();
     }
     
+    //Executes a human player's turn
     public override void Play()
     {
+        //Players input for coordinates
         HumanInput();
+
+        //Players place chosen number on board
         ProcessInBoard();
+        
+        //Switch turn between players
+        SwapPlayers();
     }
 
     //Handles player input for row and column positions and ensures chosen space is not taken place

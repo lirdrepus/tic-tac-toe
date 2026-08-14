@@ -1,9 +1,11 @@
 namespace tic_tac_toe;
 
+//Controls Human vs Computer gameplay.
+//Includes human moves, computer move and win detection logic
 public class Computer : Player
 {
     private Random _rnd;
-    
+
     public Computer(GlobalVariables globalVariables)
     {
         gv = globalVariables;
@@ -12,13 +14,17 @@ public class Computer : Player
         printBoard = new PrintBoard(gv);
     }
 
+    //Executes a computer turn.
     public override void Play()
     {
         BoardCheck();
         ComInput();
         printBoard.PntCurrentBoard();
+        SwapPlayers();
+
     }
 
+    //Randomly selects a valid position and number.
     private void ComInput()
     {
         do
@@ -56,8 +62,7 @@ public class Computer : Player
 
     }
 
-
-
+    //Checks whether computer can win immediately by completing a line.
     private void BoardCheck()
     {
         int[] horizontalList = new int[gv.n];
@@ -76,7 +81,7 @@ public class Computer : Player
 
             if (lastHoriEven != 0 &&
                 horizontalList.Count(x => x == 0) == 1 &&
-                gv.OddEvenInNSquare[1].Contains(lastHoriEven))
+                gv.OddEvenInNSquare[gv.CurrentPlayer].Contains(lastHoriEven))
             {
                 int indexHori = Array.IndexOf(horizontalList, 0);
                 Console.WriteLine(
@@ -87,7 +92,7 @@ public class Computer : Player
             }
             else if (lastVerdiEven != 0 &&
                      verticalList.Count(x => x == 0) == 1 &&
-                     gv.OddEvenInNSquare[1].Contains(lastVerdiEven))
+                     gv.OddEvenInNSquare[gv.CurrentPlayer].Contains(lastVerdiEven))
             {
                 int indexVerdi = Array.IndexOf(verticalList, 0);
                 Console.WriteLine(
@@ -112,7 +117,7 @@ public class Computer : Player
 
         if (lastMainDiaEven != 0 &&
             mainDiagonal.Count(x => x == 0) == 1 &&
-            gv.OddEvenInNSquare[1].Contains(lastMainDiaEven))
+            gv.OddEvenInNSquare[gv.CurrentPlayer].Contains(lastMainDiaEven))
         {
             int indexMainDia = Array.IndexOf(mainDiagonal, 0);
             Console.WriteLine(
@@ -123,7 +128,7 @@ public class Computer : Player
         }
         else if (lastAntiDiaEven != 0 &&
                  antiDiagonal.Count(x => x == 0) == 1 &&
-                 gv.OddEvenInNSquare[1].Contains(lastAntiDiaEven))
+                 gv.OddEvenInNSquare[gv.CurrentPlayer].Contains(lastAntiDiaEven))
         {
             int indexAntiDiaEven = Array.IndexOf(antiDiagonal, 0);
             Console.WriteLine(
@@ -132,6 +137,5 @@ public class Computer : Player
             printBoard.PntCurrentBoard();
             Environment.Exit(0);
         }
-
     }
 }

@@ -18,7 +18,7 @@ public class GlobalVariables
     public int[] ColPlayer { get; set; }= new int [2];
     //Stores odd and even numbers for each player
     public int[][] OddEvenInNSquare { get; set; }= new int[2][];
-    //Player's turn: 0 = Player 1, 1 = Player 2 and current player using string "odd" or "even" 
+    //Player's turn: 0 is Player 1, 1 is Player 2 and current player using string "odd" or "even" 
     public int CurrentPlayer { get; set; } = 0;
     public string CurrentNum { get; set; } = "odd";
 
@@ -35,8 +35,8 @@ public class GlobalVariables
         
         WinNumber = n * (n * n + 1) / 2;
         
+        //Initialize oddEvenInNSquare array for the odd and even number pools
         OddEvenInNSquare[0] = new int[numbersInPlayer1];
-
         OddEvenInNSquare[1] = new int[numbersInPlayer2];
         
         for (int i = 0; i < numbersInPlayer1; i++)
