@@ -132,7 +132,7 @@ public class Computer : Player
         {
             int indexAntiDiaEven = Array.IndexOf(antiDiagonal, 0);
             Console.WriteLine(
-                $"Computer placed {lastAntiDiaEven} at row {indexAntiDiaEven} column {gv.n - indexAntiDiaEven}, Summary of Anti Diagonal is {gv.WinNumber}, Computer Wins!");
+                $"Computer placed {lastAntiDiaEven} at row {indexAntiDiaEven + 1} column {gv.n - indexAntiDiaEven}, Summary of Anti Diagonal is {gv.WinNumber}, Computer Wins!");
             gv.BoardLocations[indexAntiDiaEven, gv.n - indexAntiDiaEven - 1] = lastAntiDiaEven;
             printBoard.PntCurrentBoard();
             Environment.Exit(0);
