@@ -6,88 +6,74 @@ public class Game
 {
     //Constructor initializes game with global variables and input handler
     private readonly GlobalVariables gv;
-    private NumberInput numInput;
+    private Player player, computer;
+    
     public Game(GlobalVariables globalVariables)
     {
         gv = globalVariables;
-        numInput = new NumberInput();
+        player = new Human(gv);
+        computer = new Computer(gv);
     }
-   
+
     //Runs Human vs Human mode until game ends.
     public void HumanVsHuman()
-        {
-            while (true) 
-            {
-                //Players input for coordinates
-                HumanInput();
-
-                //Players place chosen number on board
-                ProcessInBoard();
-                
-                //Switch turn between players
-                if (gv.CurrentPlayer == 0)
-                {
-                    gv.CurrentPlayer = 1;
-                    gv.CurrentNum = "even";
-                }
-                else
-                {
-                    gv.CurrentPlayer = 0;
-                    gv.CurrentNum = "odd";
-                }
-
-            }
-        }
-
-    //Handles player input for row and column positions and ensures chosen space is not taken place
-    public void HumanInput()
     {
-        do
+        //Player player = new Human(gv);
+        while (true)
         {
-            var playerInputInt = new PlayerInputInt();
-            gv.RowPlayer[gv.CurrentPlayer] =
-                playerInputInt.PlayerInpInt($"Please place a row number for Player{gv.CurrentPlayer + 1}:", gv.n) - 1;
+            
+            player.Play();
+            //Players input for coordinates
+            //HumanInput();
 
-            gv.ColPlayer[gv.CurrentPlayer] =
-                playerInputInt.PlayerInpInt($"Please place a column number for Player{gv.CurrentPlayer + 1}:", gv.n) -
-                1;
- 
-            if (gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]] != 0)
-            {
-                Console.WriteLine("This space has been input a number, try another space");
-            }
-        } while (gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]] != 0);
-    }
+            //Players place chosen number on board
+            //ProcessInBoard();
 
-    //Places the chosen odd/even number into the board makesure the chosen number in the array
-    //Updates available number pool and checks for win condition.
-    public void ProcessInBoard()
-    {
-        do
-        {
-            gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]] =
-                numInput.NumInt($"Please enter an {gv.CurrentNum} number:", gv.OddEvenInNSquare[gv.CurrentPlayer]);
-            if (gv.OddEvenInNSquare[gv.CurrentPlayer]
-                .Contains(gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]]))
+            //Switch turn between players
+            if (gv.CurrentPlayer == 0)
             {
-                int index = Array.IndexOf(gv.OddEvenInNSquare[gv.CurrentPlayer],
-                    gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]]);
-                gv.OddEvenInNSquare[gv.CurrentPlayer][index] = 0;
+                gv.CurrentPlayer = 1;
+                gv.CurrentNum = "even";
             }
             else
             {
-                Console.WriteLine("This number is already in the board, please try again");
+                gv.CurrentPlayer = 0;
+                gv.CurrentNum = "odd";
+            }
+        }
+    }
+    
+    public void HumanVsComputer()
+    {
+        //var game = new Game(gv);
+        //Player player = new Human(gv);
+        //Player computer = new Computer(gv);
+        
+        while (true)
+        {
+            player.Play();
+            //game.HumanInput();
+            //game.ProcessInBoard();
+            
+            if (gv.CurrentPlayer == 0)
+            {
+                gv.CurrentPlayer = 1;
+                gv.CurrentNum = "even";
             }
 
-            PrintBoard printBoard = new PrintBoard(gv);
-            printBoard.PntCurrentBoard();
+            computer.Play();
+            //BoardCheck();
+            //ComInput();
             
-            ResultCheck resultCheck = new ResultCheck(gv);
-            resultCheck.AmountCheck($"Player {gv.CurrentPlayer + 1}");
+            //printBoard.PntCurrentBoard();
 
-        } while (gv.OddEvenInNSquare[gv.CurrentPlayer]
-                     .Contains(gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]]) ||
-                 gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]] > gv.n * gv.n ||
-                 gv.BoardLocations[gv.RowPlayer[gv.CurrentPlayer], gv.ColPlayer[gv.CurrentPlayer]] == 0);
+
+            if (gv.CurrentPlayer == 1)
+            {
+                gv.CurrentPlayer = 0;
+                gv.CurrentNum = "odd";
+            }
+        }
+
     }
 }
